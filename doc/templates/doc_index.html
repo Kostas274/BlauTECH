@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+
+{% if docs %}
+    {% block content %}
+        {% for doc in docs %}
+        <div>
+    	    <p>{{ doc.name }} {{ doc.doc_number }} {{ doc.published_date }}</p>
+        </div>
+        {% endfor %}
+    {% endblock %}
+{% endif %}
+

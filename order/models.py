@@ -7,17 +7,16 @@ from pdm.models import Counterparty
 
 class Order(models.Model):
     order_number = models.CharField(_("order_number"), max_length=15, unique=True)
+    order_date = models.DateField(_("order_date"), default=date.today)
     counterparty = models.ForeignKey("pdm.Counterparty", null=True, on_delete=models.SET_NULL)
-    creation_date = models.DateField(_("creation_date"), default=date.today)
-    amount = models.DecimalField(_("amount"), max_digits=12, decimal_places=2, blank=True)
-    discount_percent = models.DecimalField(_("discount_percent"), max_digits=5, decimal_places=2, blank=True)
-    tax_percent = models.DecimalField(_("tax_percent"), max_digits=5, decimal_places=2, blank=True)
-    total = models.DecimalField(_("total"), max_digits=12, decimal_places=2, blank=True)
-    image = models.FileField(upload_to='orders')
-    # item = models.ManyToManyField("self", symmetrical=False, through="OrderItem")
+    amount = models.DecimalField(_("amount"), max_digits=12, decimal_places=2, null=True, blank=True, default=0)
+    discount_percent = models.DecimalField(_("discount_percent"), max_digits=5, decimal_places=2, blank=True, default=0)
+    tax_percent = models.DecimalField(_("tax_percent"), max_digits=5, decimal_places=2, blank=True, default=0)
+    total = models.DecimalField(_("total"), max_digits=12, decimal_places=2, blank=True, default=0)
+    image = models.FileField(upload_to='order/image', blank=True)
     
     def __str__(self):
-        return (self.order_number, self.counterparty, self.total)
+        return "#" + str(self.order_number) + "____" + str(self.counterparty) + "____" + str(self.total)
 
     class Meta:
         ordering = ['order_number']
@@ -26,15 +25,13 @@ class Order(models.Model):
         
 
 class OrderItem(models.Model):
-    order = models.ForeignKey("Order", on_delete=models.CASCADE)
-    goods = models.ForeignKey("good.Good", on_delete=models.CASCADE)
-    quantity = models.DecimalField(_("quantity"), max_digits=12, decimal_places=3, blank=False)
-    price = models.DecimalField(_("price"), max_digits=8, decimal_places=2, blank=False)
-    
-    # def __str__(self):
-        # return (self.order, self.goods, self.quantity)
+    order = models.ForeignKey("Order", on_delete=models.CASCADE, null=False, blank=False)
+    goods = models.ForeignKey("good.Good", on_delete=models.CASCADE, null=True, blank=False)
+    quantity = models.DecimalField(_("quantity"), max_digits=12, decimal_places=3, null=False, blank=False)
+    price = models.DecimalField(_("price"), max_digits=8, decimal_places=2, null=False, blank=False)
+
     
     class Meta:
         ordering = ['order']
         verbose_name = 'Состав счета'
-        verbose_name_plural = 'Составы счетов'
+        verbose_name_plural = 'Составы счетов'  

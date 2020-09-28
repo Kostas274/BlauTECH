@@ -62,19 +62,27 @@ class Product(models.Model):
     note = models.CharField(_("note"), max_length=50, blank=True)   
     
     mass = models.DecimalField(_("mass"), max_digits=10, decimal_places=3, blank=True)
+    area = models.DecimalField(_("area"), max_digits=8, decimal_places=3, blank=True, default=0)
+    coating = models.CharField(_("coating"), max_length=100, blank=True)
+    treatment = models.CharField(_("treatment"), max_length=15, blank=True)
+    stocksize = models.DecimalField(_("stocksize"), max_digits=10, decimal_places=3, blank=True, default=0)
+    perimeter = models.DecimalField(_("perimeter"), max_digits=10, decimal_places=3, blank=True, default=0)
+    incut = models.PositiveSmallIntegerField(_("incut"), blank=True, default=0)
+    bend = models.PositiveSmallIntegerField(_("bend"), blank=True, default=0)
+    
     unit = models.ForeignKey("Unit", null=True, blank=False, on_delete=models.SET_NULL)
     cost = models.DecimalField(_("cost"), max_digits=10, decimal_places=2, blank=True)      
     cooperation = models.BooleanField(_("cooperation"), default=False)
     counterparty = models.ForeignKey("Counterparty", null=True, blank=True, on_delete=models.SET_NULL)
     spc = models.ManyToManyField("self", symmetrical=False, through="Spc")
     
-    drawing = models.FileField(upload_to='drawings', blank=True)
-    cam_file = models.FileField(upload_to='cam_files', blank=True)
+    drawing = models.FileField(upload_to='pdm/drawings', blank=True)
+    cam_file = models.FileField(upload_to='pdm/cam_files', blank=True)
     
     def __str__(self):
         if self.partition > 3 and self.partition < 7:
-            return self.name
-        return (self.part_number + " " + self.name)
+            return str(self.name)
+        return str(self.part_number) + " " + str(self.name)
 
     class Meta:
         ordering = ['partition', 'part_number', 'name']
@@ -149,8 +157,8 @@ class Spc(models.Model):
     member = models.ForeignKey("Product", blank=False, on_delete=models.CASCADE, related_name="item")
     quantity = models.DecimalField(_("quantity"), max_digits=12, decimal_places=3, blank=False)
     
-    # def __str__(self):
-        # return (self.owner + ": " + self.member + ", " + str(self.quantity))
+    def __str__(self):
+        return str(self.owner) + ": " + str(self.member) + ", " + str(self.quantity)
     
     class Meta:
         ordering = ['owner', 'member']        
@@ -158,21 +166,20 @@ class Spc(models.Model):
         verbose_name_plural = 'Спецификации'
         
         
-class ProductProperties(models.Model):
-    prod = models.OneToOneField("Product", on_delete=models.CASCADE)       
-    area = models.DecimalField(_("area"), max_digits=8, decimal_places=3, blank=True, default=0)
-    coating = models.CharField(_("coating"), max_length=100, blank=True)
-    treatment = models.CharField(_("treatment"), max_length=15, blank=True)
-    stocksize = models.DecimalField(_("stocksize"), max_digits=10, decimal_places=3, blank=True, default=0)
-    perimeter = models.DecimalField(_("perimeter"), max_digits=10, decimal_places=3, blank=True, default=0)
-    incut = models.PositiveSmallIntegerField(_("incut"), blank=True, default=0)
-    bend = models.PositiveSmallIntegerField(_("bend"), blank=True, default=0)
- 
-    def __str__(self):
-        return (self.prod) 
-
-    
-    class Meta:
-        ordering = ['prod']        
-        verbose_name = 'Свойства деталей'
-        verbose_name_plural = 'Свойства деталей'
+#class ProductProperties(models.Model):
+#    prod = models.OneToOneField("Product", on_delete=models.CASCADE)       
+#    area = models.DecimalField(_("area"), max_digits=8, decimal_places=3, blank=True, default=0)
+#    coating = models.CharField(_("coating"), max_length=100, blank=True)
+#    treatment = models.CharField(_("treatment"), max_length=15, blank=True)
+#    stocksize = models.DecimalField(_("stocksize"), max_digits=10, decimal_places=3, blank=True, default=0)
+#    perimeter = models.DecimalField(_("perimeter"), max_digits=10, decimal_places=3, blank=True, default=0)
+#    incut = models.PositiveSmallIntegerField(_("incut"), blank=True, default=0)
+#    bend = models.PositiveSmallIntegerField(_("bend"), blank=True, default=0)
+# 
+#    def __str__(self):
+#        return str(self.prod) 
+#
+#    class Meta:
+#        ordering = ['prod']        
+ #       verbose_name = 'Свойства деталей'
+#        verbose_name_plural = 'Свойства деталей'

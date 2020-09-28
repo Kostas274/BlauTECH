@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import Product, Group, Unit, Counterparty, ProductProperties, Spc
+from .models import Product, Group, Unit, Counterparty, Spc
 
 admin.site.register(Group)
 admin.site.register(Unit)
-admin.site.register(ProductProperties)
 
     
 class ProductAdmin(admin.ModelAdmin):

@@ -7,7 +7,7 @@ class Doc(models.Model):
     name = models.CharField(_("name"), max_length=100, db_index=True)
     description = models.TextField(_("description"), blank=True)
     published_date= models.DateField(_("published_date"))
-    image = models.ImageField(upload_to='certificates')
+    image = models.ImageField(upload_to='doc/image')
     
     def __str__(self):
         return (self.doc_number + " " + self.name)

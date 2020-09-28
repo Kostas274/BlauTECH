@@ -1,0 +1,61 @@
+{% extends "main.html" %}
+
+{% block sidebar %}     
+    <ul class="side-menu">
+        <!-- <li><a href="{% url 'pdm_index' category=0 %}">All information</a></li> -->
+        <li><a href="{% url 'pdm_index' category=1 %}">Complete products</a></li>
+        <li><a href="{% url 'pdm_index' category=2 %}">Assemblies</a></li>
+        <li><a href="{% url 'pdm_index' category=3 %}">Parts</a></li>
+        <li><a href="{% url 'pdm_index' category=4 %}">Standard parts</a></li>
+        <li><a href="{% url 'pdm_index' category=5 %}">Purchased</a></li>
+        <li><a href="{% url 'pdm_index' category=6 %}">Materials</a></li>
+        <li><a href="{% url 'pdm_index' category=7 %}">Sets</a></li>
+    </ul>
+{% endblock %}
+{% if products %}
+    {% block content %}   
+    <div>
+        <table class="autonumber_table">
+          <!-- <thead> -->
+            <!-- <tr> -->
+              <!-- <th>Part number</th> -->
+              <!-- <th>Name</th> -->
+            <!-- </tr> -->
+          <!-- </thead> -->
+          <tbody>
+          <style>
+            .autonumber_table {
+              border-collapse: collapse;
+              counter-reset: schetchik; 
+            }
+            .autonumber_table tr {
+              counter-increment: schetchik;
+            }
+            .autonumber_table td,
+            .autonumber_table tr:before {
+              padding: .1em .5em;
+              border: 1px solid #ccc; <!-- #E7D5C0; -->
+            }
+            .autonumber_table tr:before {
+              content: counter(schetchik);  
+              display: table-cell;
+              vertical-align: middle;
+             color: black;  <!-- #978777; -->
+            }
+        </style>
+        {% for product in products %}
+            <tr>
+              <td>{{ product.part_number }}</td>
+              <td>{{ product.name }}</td>
+            </tr>       
+<!--       
+       <div class="b">
+    	    <p>{{ product.partition }} {{ product.part_number }} {{ product.name }}</p>
+       </div>
+-->
+        {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    {% endblock %}
+{% endif %}
