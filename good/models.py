@@ -16,7 +16,7 @@ class Good(models.Model):
     power = models.DecimalField(_("power"), max_digits=5, decimal_places=2, blank=True, default=0)
     productivity = models.DecimalField(_("productivity"), max_digits=5, decimal_places=2, blank=True, default=0)
     preview_qty = models.PositiveIntegerField(_("preview_qty"), blank=True, default=0)
-    image = models.ImageField(upload_to='static/images', blank=True) #, height_field=None, width_field=None, max_length=100)
+    image = models.ImageField(upload_to='img', blank=True) #, height_field=None, width_field=None, max_length=100)
     
     def __str__(self):
         return (self.name)

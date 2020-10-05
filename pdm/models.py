@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from datetime import date
+from django.urls import reverse
 
 
 class NullableCharField(models.CharField):
@@ -83,6 +84,9 @@ class Product(models.Model):
         if self.partition > 3 and self.partition < 7:
             return str(self.name)
         return str(self.part_number) + " " + str(self.name)
+        
+    def get_absolute_url(self):
+        return reverse('product-list', kwargs={'category': self.partition})
 
     class Meta:
         ordering = ['partition', 'part_number', 'name']
@@ -156,7 +160,8 @@ class Spc(models.Model):
     owner = models.ForeignKey("Product", blank=False, on_delete=models.CASCADE, related_name="holder")
     member = models.ForeignKey("Product", blank=False, on_delete=models.CASCADE, related_name="item")
     quantity = models.DecimalField(_("quantity"), max_digits=12, decimal_places=3, blank=False)
-    
+    note = models.CharField(_("note"), max_length=15, blank=True)
+
     def __str__(self):
         return str(self.owner) + ": " + str(self.member) + ", " + str(self.quantity)
     

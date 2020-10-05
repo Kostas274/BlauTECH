@@ -36,11 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'widget_tweaks',
     'home',
     'doc',
     'good',
     'order',
-    'pdm',
+#    'pdm',
+    'pdm.apps.PdmConfig',
 ]
 
 MIDDLEWARE = [
@@ -124,5 +127,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    BASE_DIR / "assets",
 ]

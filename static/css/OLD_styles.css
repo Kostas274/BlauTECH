@@ -1,0 +1,95 @@
+/*@import url(https://fonts.googleapis.com/css?family=Lora);*/
+
+body {margin:0;}
+h2 {
+  font-family: monospace;
+  color: white;
+}
+ul {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 1em; /*убираем верхнее и нижнее поле, равное 1em*/
+  /* padding-left: 0; /*убираем левый отступ, равный 40px*/ */
+}
+a {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  font-family: serif;
+  transition: .5s linear;
+  height: auto;
+}
+i {
+  margin-right: 10px;
+}
+nav {
+  display: table;
+  position: relative;
+  width: 100%;
+  height: auto; /* зазор между меню */
+
+/* display: block; */
+/* width: 2000px; */
+/* margin: 0 auto 30px; */
+}
+
+/* =========================== */
+/* верхнее горизонтальное меню */
+/* =========================== */
+.top-menu ul {
+  padding: 1em;
+  margin: 0; /*убираем верхнее и нижнее поле, равное 1em*/
+  background: #08457e;
+  height: auto;
+}
+.top-menu a {
+  padding: 1em; /*высота строки*/
+ /* background: rgba(177, 152, 145, .3);
+  border-right: 1px solid #b19891;*/
+  color: white; /*#695753;*/
+}
+.top-menu a:hover {
+    background-color: #ccc;
+    background: #b19891;
+}
+.top-menu li {
+    display: inline;
+    }
+
+/* ========================= */
+/* боковое вертикальное меню */
+/* ========================= */
+.side-menu {
+    width: 200px;
+    margin: 0; /*убираем верхнее и нижнее поле, равное 1em*/
+    padding-left: 0; /*убираем левый отступ, равный 40px*/
+    padding-top: 0;
+}
+.side-menu ul {
+  list-style: none; /*убираем маркеры списка*/
+  /* margin: 0; /*убираем верхнее и нижнее поле, равное 1em*/ */
+  /* padding-left: 0; /*убираем левый отступ, равный 40px*/ */
+}
+.side-menu a {
+    padding: 0.5em;
+    background-color: #eee;
+    color: black;
+    display: block;
+    /* padding: 10px; */
+    text-decoration: none;
+}
+
+.side-menu a:hover {
+    background-color: #ccc;
+    /* background-color: #b19891; */
+}
+
+.side-menu a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+/* ========================= */
+/* боковое вертикальное меню и таблица - в одну строку */
+/* ========================= */
+
+.row div{ 
+    display:inline-block; 
+    vertical-align: top;
+    }

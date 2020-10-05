@@ -1,0 +1,36 @@
+<table>
+
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Note</th>
+            <th>         </th>  <!-- for button Edit&Delete -->
+        </tr>
+    </thead>
+
+    <tbody>
+        {% if spcs %}
+            {% for spc in spcs %}
+              <tr>
+                <td>{{ spc.member }}</td>
+                <td>{{ spc.quantity}}</td>
+                <td>{{ spc.note }}</td>
+
+                <td style="width: 300px">
+                    <button type="button"
+                          class="btn btn-danger btn-sm js-delete-spc"
+                          data-url="{% url 'product_spc' spc.id %}">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete</button>
+                </td>
+              </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" class="text-center bg-warning">No specification</td>
+            </tr>
+        {% endif %}
+    </tbody>
+
+</table>

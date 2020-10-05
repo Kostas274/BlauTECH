@@ -1,0 +1,52 @@
+<table>
+            
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>Обозначение</th>
+          <th>Наименование</th>
+          <th>Группа</th>
+          <th>Кооперация</th>
+          <th>Поставщик</th>
+          <th>         </th>  <!-- for button Edit&Delete -->
+        </tr>
+    </thead>
+              
+    <tbody>
+        {% if products %}
+            {% for product in products %}
+              <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.part_number }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.group}}</td>
+                <td>{{ product.cooperation }}</td>
+                <td>{{ product.counterparty }}</td>
+
+                <td style="width: 300px">
+                  <button type="button"
+                          class="btn btn-info btn-sm js-spc-product"
+                          data-url="{% url 'product_spc' product.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span>
+                    Spec</button>
+                  <button type="button"
+                          class="btn btn-warning btn-sm js-update-product"
+                          data-url="{% url 'product_update' product.id %}">
+                    <span class="glyphicon glyphicon-pencil"></span> 
+                    Edit</button>
+                    <button type="button"
+                          class="btn btn-danger btn-sm js-delete-product"
+                          data-url="{% url 'product_delete' product.id %}">
+                    <span class="glyphicon glyphicon-trash"></span>
+                    Delete</button>
+                </td>
+              </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="8" class="text-center bg-warning">No product</td>
+            </tr>
+        {% endif %}
+    </tbody>
+         
+</table>
