@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-<!-- Custom styles for this template -->
 <link href="css/album.css" rel="stylesheet"> 
     
 {% block extra_js %}
@@ -8,24 +7,23 @@
 {% endblock %}
 
 {% block sidebar %}
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;s
+  }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+  }
+</style>
  
-
 <div class="container-fluid" style="padding-top: 60px;">
   <div class="row">    
     
@@ -40,18 +38,36 @@
         </ul>
       </div>
     </nav>
-    
-    {% for good in goods %}
-        <div class="col-md-6 col-xl-3">
-            <a href="{% url 'good_update' good.id %}"
+    {% if goods %}
+        {% for good in goods %}
+            <div class="col-md-6 col-xl-3">
+                <!-- <a href="{% url 'good_update' good.id %}"> -->
                 <div class="card">
                     <img class="card-img-top" src="/static/{{ good.image }}" alt="img_"+{{ good.id }} >
                     <div class="card-body text-center">{{good.name }}</div>
-                    <!-- <div class="d-flex justify-content-between align-items-center"></div> -->
+                    <div class="container">
+                        <button type="button"
+                            class="btn btn-warning btn-sm js-update-good"
+                            data-url="{% url 'good_update' good.id %}">
+                            <span class="glyphicon glyphicon-pencil"></span> 
+                        Edit</button>
+                        
+                        <button type="button"
+                            class="btn btn-danger btn-sm js-delete-good"
+                            data-url="{% url 'good_delete' good.id %}">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        Delete</button>
+                        <div class="d-flex justify-content-between align-items-center"></div>
+                    </div>
                 </div>
-            </a>
-        </div>
-    {% endfor %}
+                <!-- </a> -->
+            </div>
+        {% endfor %}
+    {% else %}
+        <tr>
+            <td colspan="8" class="text-center bg-warning">No good</td>
+        </tr>
+    {% endif %}
 </div>
 
 <div class="modal fade" id="modal-product">

@@ -35,7 +35,7 @@ def good_create(request, category):
     return save_good_form(request, form, 'good/partial_good_create.html', category)
 
 def good_update(request, pk):
-    good = get_object_or_404(Good, pk=pk)
+    good = get_object_or_404(Product, pk=pk)
     if request.method == 'POST':
         form = GoodForm(request.POST, instance=good) 
     else:

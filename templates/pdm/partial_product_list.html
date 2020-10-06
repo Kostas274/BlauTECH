@@ -24,12 +24,8 @@
                 <td>{{ product.counterparty }}</td>
 
                 <td style="width: 300px">
-                  <button type="button"
-                          class="btn btn-info btn-sm js-spc-product"
-                          data-url="{% url 'product_spc' product.id %}">
-                    <span class="glyphicon glyphicon-pencil"></span>
-                    Spec</button>
-                  <button type="button"
+                    <a href="{% url 'product_spc' product.id %}" class="btn btn-info btn-sm js-spc-product">Spec</a>
+                    <button type="button"
                           class="btn btn-warning btn-sm js-update-product"
                           data-url="{% url 'product_update' product.id %}">
                     <span class="glyphicon glyphicon-pencil"></span> 
