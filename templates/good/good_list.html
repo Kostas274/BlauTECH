@@ -1,8 +1,10 @@
 {% extends "base.html" %}
-<!-- {% load static %} -->
-
+{% load static %}
+<!-- Custom styles for this template -->
+<link href="css/album.css" rel="stylesheet"> 
+    
 {% block extra_js %}
-    <script src="{% static 'js/product.js' %}"></script>
+    <script src="{% static 'js/good.js' %}"></script>
 {% endblock %}
 
 {% block sidebar %}
@@ -22,9 +24,7 @@
         }
       }
     </style>
-
-    <!-- Custom styles for this template -->
-    <link href="css/album.css" rel="stylesheet">  
+ 
 
 <div class="container-fluid" style="padding-top: 60px;">
   <div class="row">    
@@ -41,22 +41,17 @@
       </div>
     </nav>
     
-    <!-- <div class="container"> -->
-      {% for good in goods %}
-        <div class="col-md-4">
-          <div class="card-body">
-            <img src="{% static good.image %}" alt="My image" />
-            <p class="card-text">{{good.name }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button class="btn btn-sm btn-outline-secondary" data-url="{% url 'good_update' good.id %}">Edit</button>
+    {% for good in goods %}
+        <div class="col-md-6 col-xl-3">
+            <a href="{% url 'good_update' good.id %}"
+                <div class="card">
+                    <img class="card-img-top" src="/static/{{ good.image }}" alt="img_"+{{ good.id }} >
+                    <div class="card-body text-center">{{good.name }}</div>
+                    <!-- <div class="d-flex justify-content-between align-items-center"></div> -->
                 </div>
-                <!-- <small class="text-muted">9 mins</small> -->
-              </div>
-          </div>
+            </a>
         </div>
-      {% endfor %}
-  <!-- </div>  -->
+    {% endfor %}
 </div>
 
 <div class="modal fade" id="modal-product">

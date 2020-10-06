@@ -20,7 +20,7 @@ def save_good_form(request, form, template_name, category):
             form.save()
             data['form_is_valid'] = True
             goods = Good.objects.all()
-            data['html_good_list'] = render_to_string('good/partial_good_list.html', {'goods': goods, 'category': category})
+            data['html_good_list'] = render_to_string('good/good_list.html', {'goods': goods, 'category': category})
         else:
             data['form_is_valid'] = False
     context = {'form': form, 'category': category}
